@@ -1,0 +1,130 @@
+<svg viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="1000" fill="#1a1a1a"/>
+  
+  <!-- Title Section -->
+  <rect x="0" y="0" width="800" height="120" fill="#2a2a2a"/>
+  <text x="400" y="45" text-anchor="middle" fill="#9ACD32" font-family="Arial Black, sans-serif" font-size="32" font-weight="bold">REFRAME YOUR ROUND</text>
+  <text x="400" y="75" text-anchor="middle" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="20" font-weight="bold">PLATEAU SPIRAL EDITION</text>
+  <text x="400" y="100" text-anchor="middle" fill="#888888" font-family="Arial, sans-serif" font-size="16">When Progress Feels Invisible</text>
+  
+  <!-- Define gradient for arrows -->
+  <defs>
+    <linearGradient id="arrowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4ECDC4;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Arrow marker -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="url(#arrowGradient)" />
+    </marker>
+  </defs>
+  
+  <!-- Reframe Cards -->
+  <!-- Card 1 -->
+  <g transform="translate(40, 150)">
+    <rect x="0" y="0" width="720" height="100" rx="10" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="2"/>
+    
+    <!-- From section -->
+    <circle cx="30" cy="50" r="20" fill="#FF6B6B"/>
+    <text x="30" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✗</text>
+    <text x="60" y="35" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="14" font-weight="bold">FROM:</text>
+    <text x="60" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm not getting any better"</text>
+    
+    <!-- Arrow -->
+    <line x1="300" y1="50" x2="380" y2="50" stroke="url(#arrowGradient)" stroke-width="3" marker-end="url(#arrowhead)"/>
+    
+    <!-- To section -->
+    <circle cx="690" cy="50" r="20" fill="#4ECDC4"/>
+    <text x="690" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✓</text>
+    <text x="420" y="35" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="14" font-weight="bold">TO:</text>
+    <text x="420" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm consolidating deeper knowledge"</text>
+  </g>
+  
+  <!-- Card 2 -->
+  <g transform="translate(40, 270)">
+    <rect x="0" y="0" width="720" height="100" rx="10" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="2"/>
+    
+    <circle cx="30" cy="50" r="20" fill="#FF6B6B"/>
+    <text x="30" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✗</text>
+    <text x="60" y="35" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="14" font-weight="bold">FROM:</text>
+    <text x="60" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm just flopping around"</text>
+    
+    <line x1="300" y1="50" x2="380" y2="50" stroke="url(#arrowGradient)" stroke-width="3" marker-end="url(#arrowhead)"/>
+    
+    <circle cx="690" cy="50" r="20" fill="#4ECDC4"/>
+    <text x="690" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✓</text>
+    <text x="420" y="35" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="14" font-weight="bold">TO:</text>
+    <text x="420" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm exploring without attachment"</text>
+  </g>
+  
+  <!-- Card 3 -->
+  <g transform="translate(40, 390)">
+    <rect x="0" y="0" width="720" height="100" rx="10" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="2"/>
+    
+    <circle cx="30" cy="50" r="20" fill="#FF6B6B"/>
+    <text x="30" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✗</text>
+    <text x="60" y="35" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="14" font-weight="bold">FROM:</text>
+    <text x="60" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I've been stuck for months"</text>
+    
+    <line x1="300" y1="50" x2="380" y2="50" stroke="url(#arrowGradient)" stroke-width="3" marker-end="url(#arrowhead)"/>
+    
+    <circle cx="690" cy="50" r="20" fill="#4ECDC4"/>
+    <text x="690" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✓</text>
+    <text x="420" y="35" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="14" font-weight="bold">TO:</text>
+    <text x="420" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"My brain is reorganizing patterns"</text>
+  </g>
+  
+  <!-- Card 4 -->
+  <g transform="translate(40, 510)">
+    <rect x="0" y="0" width="720" height="100" rx="10" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="2"/>
+    
+    <circle cx="30" cy="50" r="20" fill="#FF6B6B"/>
+    <text x="30" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✗</text>
+    <text x="60" y="35" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="14" font-weight="bold">FROM:</text>
+    <text x="60" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"Nothing works when I roll"</text>
+    
+    <line x1="300" y1="50" x2="380" y2="50" stroke="url(#arrowGradient)" stroke-width="3" marker-end="url(#arrowhead)"/>
+    
+    <circle cx="690" cy="50" r="20" fill="#4ECDC4"/>
+    <text x="690" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✓</text>
+    <text x="420" y="35" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="14" font-weight="bold">TO:</text>
+    <text x="420" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm discovering real resistance"</text>
+  </g>
+  
+  <!-- Card 5 -->
+  <g transform="translate(40, 630)">
+    <rect x="0" y="0" width="720" height="100" rx="10" fill="#2a2a2a" stroke="#3a3a3a" stroke-width="2"/>
+    
+    <circle cx="30" cy="50" r="20" fill="#FF6B6B"/>
+    <text x="30" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✗</text>
+    <text x="60" y="35" fill="#FF6B6B" font-family="Arial, sans-serif" font-size="14" font-weight="bold">FROM:</text>
+    <text x="60" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm just surviving rounds"</text>
+    
+    <line x1="300" y1="50" x2="380" y2="50" stroke="url(#arrowGradient)" stroke-width="3" marker-end="url(#arrowhead)"/>
+    
+    <circle cx="690" cy="50" r="20" fill="#4ECDC4"/>
+    <text x="690" y="57" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">✓</text>
+    <text x="420" y="35" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="14" font-weight="bold">TO:</text>
+    <text x="420" y="60" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">"I'm building defensive instincts"</text>
+  </g>
+  
+  <!-- Bottom Reminder Section -->
+  <rect x="40" y="770" width="720" height="180" rx="15" fill="#333333" stroke="#4ECDC4" stroke-width="2"/>
+  
+  <text x="400" y="810" text-anchor="middle" fill="#4ECDC4" font-family="Arial, sans-serif" font-size="20" font-weight="bold">PLATEAU TRUTH</text>
+  
+  <text x="400" y="850" text-anchor="middle" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">
+    The plateau always comes before the leap.
+  </text>
+  <text x="400" y="880" text-anchor="middle" fill="#cccccc" font-family="Arial, sans-serif" font-size="16">
+    Your brain needs time to reorganize what you've learned.
+  </text>
+  <text x="400" y="910" text-anchor="middle" fill="#9ACD32" font-family="Arial, sans-serif" font-size="16" font-style="italic">
+    Progress is happening beneath the surface.
+  </text>
+  
+  <!-- Footer -->
+  <text x="400" y="980" text-anchor="middle" fill="#666666" font-family="Arial, sans-serif" font-size="14" font-style="italic">From "BJJ for Quitters" - Slime Mold Grappling Club</text>
+</svg>

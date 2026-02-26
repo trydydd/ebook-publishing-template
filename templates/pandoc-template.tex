@@ -1,0 +1,134 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$openany$if(classoption)$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
+% Essential packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+% \usepackage{lmodern}
+\usepackage{fontspec}
+\setmainfont[
+  Path=assets/fonts/,
+  UprightFont = EBGaramond-Regular.ttf,
+  BoldFont = EBGaramond-Bold.ttf,
+  ItalicFont = EBGaramond-Italic.ttf,
+  BoldItalicFont = EBGaramond-BoldItalic.ttf
+]{EBGaramond}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{calc}
+\usepackage{etoolbox}
+\usepackage{footnotehyper}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\definecolor{sidebarframe}{HTML}{006E3C} % Add this after \usepackage{xcolor}
+\usepackage{fancyhdr}
+
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+
+% Adjust list spacing
+\def\tightlist{}
+\usepackage{enumitem}
+\setlist{itemsep=0em, topsep=0em, topsep=0em, partopsep=0em}
+\setlist[itemize]{itemsep=0pt, topsep=0pt, partopsep=0pt, parsep=0pt} % adjust as needed
+\renewcommand{\tightlist}{}
+
+% Hyperlink setup
+\hypersetup{
+  pdftitle={$title$},
+  pdfauthor={$author$},
+  pdfsubject={$subject$},
+  pdfkeywords={$keywords$},
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  breaklinks=true
+}
+
+% Title and author
+\title{$title$$if(subtitle)$\\$subtitle$$endif$}
+\author{$author$}
+\date{$date$}
+
+% Custom styling
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\textit{$title$}}
+\fancyhead[LO]{\textit{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Chapter styling
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{10pt}
+\titlespacing*{\section}{0pt}{1.5ex}{1.0ex}    % <-- Add or adjust this line
+\titlespacing*{\subsection}{0pt}{1.25ex}{0.25ex} % <-- Add or adjust this line
+\titlespacing*{\subsubsection}{0pt}{1ex}{0.15ex} % <-- Add or adjust this line
+
+% Code highlighting
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% Sidebar (tcolorbox) support
+\usepackage[most]{tcolorbox}
+\newtcolorbox{sidebar}[2][]{
+  colback=yellow!10,
+  colframe=sidebarframe,
+  fonttitle=\bfseries,
+  title=#2, % Use the optional argument as the title
+  left=2mm,
+  right=2mm,
+  boxrule=1pt,
+  arc=3mm,
+  boxsep=5pt,
+  enhanced,
+  drop shadow
+}
+
+% This tells Pandoc how to map fenced divs with .sidebar to the sidebar environment.
+% But you also need to tell Pandoc to pass the title attribute as the second argument.
+
+\begin{document}
+% \setlength{\parindent}{0pt} % No paragraph indentation
+\setlength{\parskip}{2pt} % Space between paragraphs
+
+% Cover page (first page)
+$if(cover-image)$
+\begin{center}
+  \includegraphics[height=0.95\textheight,keepaspectratio]{$cover-image$}
+\end{center}
+$endif$
+
+% Title page
+\frontmatter
+\maketitle
+
+% Copyright page
+\newpage
+\thispagestyle{empty}
+\vspace*{\fill}
+\begin{center}
+  \begin{minipage}{0.8\textwidth}
+    \centering
+    {$if(rights)$$rights$$endif$}
+  \end{minipage}
+\end{center}
+\vspace*{\fill}
+
+% Table of contents
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+% Main content
+\mainmatter
+$body$
+
+\end{document}

@@ -1,0 +1,87 @@
+name: Build and Deploy Ebook
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'chapters/**', 'templates/**', 'assets/**', 'scripts/**' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'chapters/**', 'templates/**', 'assets/**', 'scripts/**' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          pandoc \
+          texlive-latex-base \
+          texlive-fonts-recommended \
+          texlive-latex-extra \
+          texlive-xetex \
+          texlive-fonts-extra \
+          librsvg2-bin
+    
+    - name: Install Python dependencies
+      run: |
+        pip install -r scripts/requirements.txt
+    
+    - name: Validate content
+      run: |
+        python scripts/validate.py
+    
+    - name: Build PDF
+      run: |
+        chmod +x scripts/build.sh
+        ./scripts/build.sh
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ebook-pdfs
+        path: output/*.pdf
+    
+    - name: Extract version from metadata
+      id: get_version
+      run: |
+        VERSION=$(grep '^version:' templates/metadata.yml | sed 's/version:[ ]*//;s/^"\(.*\)"$/\1/')
+        TITLE=$(grep '^title:' templates/metadata.yml | sed 's/title:[ ]*//;s/^"\(.*\)"$/\1/' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+        BASENAME="${TITLE}-v${VERSION}"
+        echo "basename=$BASENAME" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ steps.get_version.outputs.basename }}
+        name: Release v${{ steps.get_version.outputs.basename }}
+        body: |
+          Automated release of ebook build ${{ steps.get_version.outputs.basename }}
+          
+          **Files:**
+          - `${{ steps.get_version.outputs.basename }}.pdf` - Standard version for Gumroad
+          - `${{ steps.get_version.outputs.basename }}-kdp.pdf` - Optimized for Amazon KDP
+          - `${{ steps.get_version.outputs.basename }}-mobile.pdf` - Optimized for mobile devices
+          
+          **Changes:**
+          ${{ github.event.head_commit.message }}
+        files: |
+          output/${{ steps.get_version.outputs.basename }}.pdf
+          output/${{ steps.get_version.outputs.basename }}-kdp.pdf
+          output/${{ steps.get_version.outputs.basename }}-mobile.pdf
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}

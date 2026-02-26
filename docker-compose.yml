@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  ebook-builder:
+    build: .
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    environment:
+      - LANG=C.UTF-8
+    command: ["bash", "scripts/build.sh"]

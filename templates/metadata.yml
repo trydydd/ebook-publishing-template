@@ -1,0 +1,58 @@
+# Book Metadata Configuration
+title: "BJJ for Quitters"
+subtitle: "A guide to grappling happiness for disgruntled hobbyists."
+author: "Slime Mold Grappling Club"
+publisher: "Self-Published"
+date: "2025"
+version: "1.2"
+isbn: ""  # Add your ISBN if you have one
+description: |
+  <b>BJJ doesn’t have to break you—or your spirit.</b><br/><br/>
+
+  If you've ever sat in the car after training thinking, “Why does this feel harder than it should?”—this book is for you.<br/><br/>
+
+  <b>BJJ for Quitters</b> is a guide for the rest of us: the hobbyists, the comeback stories, the lifelong learners who want to train hard *and* train smart. It’s written for people who love grappling but aren’t trying to be world champions—just better versions of themselves.<br/><br/>
+
+  Drawing from years of coaching, firsthand experience, and a big ol’ pile of research in <i>ecological dynamics, constraints-led learning, and trauma-informed practice</i>, this book offers a warm, nerdy, and practical approach to sustainable skill development in Jiu-Jitsu.<br/><br/>
+
+  <b>Inside, you’ll learn how to:</b><br/>
+  • Rebuild your training around <i>fun, curiosity, and control</i><br/>
+  • Use process-based goals that actually motivate you<br/>
+  • Track progress without killing the vibe<br/>
+  • Avoid burnout and build a game that lasts<br/>
+  • Come back from layoffs, injuries, or mental fatigue—without losing your mind<br/><br/>
+
+  You’ll also find journaling tools, experiments, and mini frameworks you can bring straight to the mat—no black belt required.<br/><br/>
+
+  <b>This book is not:</b><br/>
+  • A quick-fix guide to winning rounds<br/>
+  • A list of techniques to memorize<br/>
+  • A “just tough it out” survival manual<br/><br/>
+
+  <b>It is:</b><br/>
+  • A playful, deeply thoughtful look at what makes training worth sticking with<br/>
+  • A practical toolkit for navigating the ups, downs, and “what even is my game anymore?” moments<br/>
+  • A friend in paperback form reminding you that your training gets to fit <i>you</i><br/><br/>
+
+  Whether you’re a coach building culture or a grappler trying to reconnect with joy on the mat, <b>BJJ for Quitters</b> is your permission slip to train differently—and maybe stick around long enough to fall in love with Jiu-Jitsu all over again.
+
+
+# Publication Details
+language: en-US
+subject: "Sports & Recreation > Martial Arts > Jiu-Jitsu"
+keywords: "grappling, wrestling, bjj, submission grappling, quitting, quitters, jiu-jitsu, jujitsu, martial arts, self-improvement, coaching, training, mental health, resilience"
+rights: "© 2025 Slime Mold Grappling Club. All rights reserved."
+
+# Technical Settings
+cover-image: "assets/cover.png"
+toc: true
+toc-depth: 3
+number-sections: true
+highlight-style: "tango"
+
+# PDF Settings
+geometry: "margin=1in"
+fontsize: "12pt"
+linestretch: 1.2
+documentclass: "book"
+papersize: "letter"
