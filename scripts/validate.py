@@ -3,8 +3,7 @@
 Content validation script for ebook publishing
 """
 
-import os
-import re
+import subprocess
 import sys
 import yaml
 from pathlib import Path
@@ -42,20 +41,43 @@ def validate_metadata() -> Tuple[bool, List[str]]:
         return False, errors
 
 def validate_chapters() -> Tuple[bool, List[str]]:
-    """Validate chapter files"""
+    """Validate chapter files exist and contain valid markdown."""
     errors = []
-    
     chapters_dir = Path('chapters')
+
     if not chapters_dir.exists():
         errors.append("Chapters directory not found")
         return False, errors
-    
-    # Find all markdown files
-    md_files = list(chapters_dir.glob('*.md'))
+
+    md_files = sorted(chapters_dir.glob('*.md'))
     if not md_files:
         errors.append("No markdown files found in chapters directory")
         return False, errors
-    
+
+    # Validate each file with pandoc (same engine used for the build)
+    for path in md_files:
+        try:
+            result = subprocess.run(
+                ["pandoc", "-f", "markdown", "-t", "json", str(path)],
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+        except FileNotFoundError:
+            errors.append(
+                "Pandoc not found; cannot validate markdown. "
+                "Install pandoc or run validation in Docker."
+            )
+            return False, errors
+        except subprocess.TimeoutExpired:
+            errors.append(f"Markdown validation timed out: {path.name}")
+            continue
+        if result.returncode != 0:
+            msg = (result.stderr or result.stdout or "unknown error").strip()
+            errors.append(f"Invalid markdown in {path}: {msg}")
+
+    if errors:
+        return False, errors
     print(f"✅ Validated {len(md_files)} chapters")
     return True, errors
 

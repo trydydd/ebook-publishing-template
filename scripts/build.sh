@@ -13,6 +13,7 @@ log() {
 
 error_exit() {
     log "❌ Error: $1"
+    log "For more help, see the Troubleshooting section in SETUP.md"
     exit "$2"
 }
 

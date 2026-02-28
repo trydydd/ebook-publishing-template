@@ -14,6 +14,28 @@ An automated system for publishing ebooks from markdown files to PDF format, wit
 - ✅ Custom styling and templates
 - ✅ CI/CD with GitHub Actions
 
+**Starting a new book?** Click **Use this template** → **Create a new repository** on GitHub to create your own copy. You then edit that repo (in the browser or after cloning). You don't need to fork or clone this template repo directly.
+
+## Choose your path
+
+**I'll edit in GitHub's web editor.**  
+1. Use **Use this template** → **Create a new repository** to make your own copy.  
+2. Open your repo on GitHub and edit `templates/metadata.yml` and files in `chapters/` in the browser.  
+3. Commit your changes. To get PDFs, push to `main` so GitHub Actions runs the build.  
+4. Next: [Setup Guide](SETUP.md) for GitHub Secrets (if you use Gumroad) and more detail.
+
+**I'll build PDFs locally with Docker.**  
+1. Clone this repo (or your copy from the template).  
+2. Run `docker compose build`, then `docker compose up`.  
+3. Find your PDFs in the `output/` folder.  
+4. Next: [Setup Guide](SETUP.md) for metadata and cover image; see **Building the Ebook Locally with Docker** below for requirements.
+
+**I'm ready to deploy (e.g. to Gumroad).**  
+1. Finish your content and metadata; run a local build or push to `main` to confirm the build succeeds.  
+2. In your repo: **Settings** → **Secrets and variables** → **Actions**; add `GUMROAD_ACCESS_TOKEN` and `GUMROAD_PRODUCT_ID` if you use Gumroad.  
+3. Push to `main` to trigger build and release.  
+4. Next: [Setup Guide](SETUP.md) for platform setup; if something fails, see the Troubleshooting section there.
+
 ## Quick Start
 
 1. **Edit the metadata:**
@@ -24,18 +46,22 @@ An automated system for publishing ebooks from markdown files to PDF format, wit
    - Edit files in the `chapters/` directory
    - Follow the naming convention: `01-chapter-name.md`
 
-3. **Set up GitHub Secrets:**
-   - `GUMROAD_ACCESS_TOKEN`: Your Gumroad API token
-   - `GUMROAD_PRODUCT_ID`: Your Gumroad product ID
+3. **Set up GitHub Secrets** (if you use Gumroad): add `GUMROAD_ACCESS_TOKEN` and `GUMROAD_PRODUCT_ID` in the repo: **Settings** → **Secrets and variables** → **Actions** → **New repository secret**. See [Setup Guide](SETUP.md) for step-by-step and where to find your Gumroad product ID.
 
-4. **Push to main branch:**
+4. **Before pushing,** run the checker to catch missing cover or metadata (same as in CI):
+   ```bash
+   python scripts/validate.py
+   ```
+   Run this from the repo root. If it fails, fix the reported issues before pushing.
+
+5. **Push to main branch:**
    ```bash
    git add .
    git commit -m "Initial book setup"
    git push origin main
    ```
 
-5. **Check GitHub Actions tab** for build status
+6. **Check GitHub Actions tab** for build status
 
 ## Building the Ebook Locally with Docker
 
@@ -53,7 +79,7 @@ You can build the PDF locally in a reproducible environment using Docker. This e
    docker compose up
    ```
 
-This will generate your PDFs in the `output/` directory (standard, KDP, and mobile versions).
+Your PDFs appear in the **`output/`** folder: `your-title-v1.0.pdf` (standard), `your-title-v1.0-kdp.pdf`, and `your-title-v1.0-mobile.pdf` (the exact names depend on your `title` and `version` in `templates/metadata.yml`). Open the `output/` folder in Finder or File Explorer to view them.
 
 ### Requirements
 - Docker and Docker Compose installed on your system.
@@ -66,14 +92,11 @@ You can also run the build script directly on your host if you have all dependen
 bash scripts/build.sh
 ```
 
-See the `Dockerfile` and `docker-compose.yml` for details on the build environment.
+PDFs are written to **`output/`** (same filenames as above). See the `Dockerfile` and `docker-compose.yml` for details on the build environment.
 
 ## Documentation
 
 - [Setup Guide](SETUP.md) - Detailed setup instructions
-- [Contributing](docs/CONTRIBUTING.md) - How to contribute
-- [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
-- [API Documentation](docs/API.md) - Platform API details
 
 ## Example Book
 
@@ -82,7 +105,7 @@ This repository includes a sample book about the automated publishing process it
 ## Support
 
 If you encounter issues:
-1. Check the [Troubleshooting Guide](docs/TROUBLESHOOTING.md)
+1. Check the Troubleshooting section in [SETUP.md](SETUP.md)
 2. Review the [GitHub Actions logs](../../actions)
 3. Open an issue with details about your problem
 

@@ -7,4 +7,4 @@ services:
     working_dir: /workspace
     environment:
       - LANG=C.UTF-8
-    command: ["bash", "scripts/build.sh"]
+    command: ["bash", "-c", "python scripts/validate.py && bash scripts/build.sh"]

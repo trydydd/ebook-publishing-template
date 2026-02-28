@@ -11,7 +11,17 @@ This guide will walk you through setting up your automated ebook publishing syst
 
 ## Step 1: Repository Setup
 
-### 1.1 Clone and Configure
+### 1.1 Create your repository from the template
+
+To start a new book from this template (instead of forking or cloning this repo):
+
+1. On GitHub, open this template repo and click **Use this template** → **Create a new repository**.
+2. Name your new repo, create it, then either **clone** it to your machine or **open it on GitHub** and edit files in the browser (e.g. `templates/metadata.yml`, files in `chapters/`).
+
+You now have your own copy to edit; the template repo stays unchanged.
+
+### 1.2 Clone and configure (if working locally)
+
 ```bash
 git clone https://github.com/yourusername/your-ebook-repo.git
 cd your-ebook-repo
@@ -37,11 +47,19 @@ cd your-ebook-repo
 ## Step 3: GitHub Configuration
 
 ### 3.1 Repository Secrets
-Go to your repository → Settings → Secrets and Variables → Actions
 
-Add these secrets:
-- `GUMROAD_ACCESS_TOKEN`: Your Gumroad API token
-- `GUMROAD_PRODUCT_ID`: Your Gumroad product ID
+To add secrets so GitHub Actions can access them (e.g. for Gumroad):
+
+1. Open your repository on GitHub.
+2. Click the **Settings** tab (top bar of the repo).
+3. In the left sidebar, under "Security", click **Secrets and variables** → **Actions**.
+4. Click **New repository secret**.
+5. Add the first secret:
+   - **Name:** `GUMROAD_ACCESS_TOKEN`  
+   - **Value:** your Gumroad API token (from Gumroad: product → Settings → Advanced → API).
+6. Click **New repository secret** again and add the second:
+   - **Name:** `GUMROAD_PRODUCT_ID`  
+   - **Value:** your Gumroad product ID. You can find this in the product URL on Gumroad: `https://gumroad.com/l/YourProductId` — the ID is the part after `/l/`.
 
 ### 3.2 Branch Protection (Recommended)
 - Go to Settings → Branches
@@ -51,19 +69,39 @@ Add these secrets:
 ## Step 4: Content Creation
 
 ### 4.1 Book Metadata
-Edit `templates/metadata.yml`:
+
+Edit `templates/metadata.yml`. You can edit it in the GitHub web editor or in a text editor.
+
+**Safe to edit** — Replace with your own:
+
+- `title`, `subtitle`, `author`, `publisher`, `date` — Use double quotes: `title: "Your Book Title"`
+- `version` — Used in the PDF filename (e.g. `my-book-v1.0.pdf`). Use something like `"1.0"`
+- `description` — Keep the `|` on the line after `description:` so the next lines are treated as one block. You can use HTML like `<b>bold</b>` and `<br/>` for line breaks
+- `language`, `subject`, `keywords`, `rights`, `isbn` — Optional; set as needed
+
+**Leave as-is unless you know what you're doing** — The build and template depend on these:
+
+- `cover-image: "assets/cover.png"` — Keep this path; put your cover file at `assets/cover.png` and replace that file
+- `toc`, `toc-depth`, `number-sections`, `highlight-style` — Under "Technical Settings"
+- `geometry`, `fontsize`, `linestretch`, `documentclass`, `papersize` — Under "PDF Settings"
+
+**Minimal example:**
+
 ```yaml
 title: "Your Book Title"
 author: "Your Name"
-publisher: "Your Publisher"
-date: "2024"
+date: "2025"
+version: "1.0"
 description: |
-  Your book description here.
-  Can be multiple lines.
-language: en-US
-subject: "Your Category"
+  One short paragraph about your book.
 cover-image: "assets/cover.png"
 ```
+
+**Common mistakes:**
+
+- **Values with colons** — Put the value in quotes so YAML doesn’t treat the colon as a new key: `title: "My Book: A Guide"` not `title: My Book: A Guide`
+- **Multiline description** — Use `description: |` and indent the following lines with two spaces; don’t forget the `|`
+- **Wrong indentation** — YAML uses spaces, not tabs. Keep key-value pairs at the same indent level
 
 ### 4.2 Chapter Structure
 - Name chapters with numbers: `01-introduction.md`, `02-chapter-one.md`
@@ -78,13 +116,25 @@ cover-image: "assets/cover.png"
 ## Step 5: Testing
 
 ### 5.1 Local Testing
+
+Before pushing, run the same checker that CI runs to catch missing cover or metadata:
+
 ```bash
-# Install dependencies (requires Docker or native LaTeX)
+python scripts/validate.py
+```
+
+Run from the repo root. If validation passes, build the PDF (Docker or host):
+
+```bash
+# With Docker (recommended)
+docker compose build && docker compose up
+
+# Or on host if you have Pandoc/LaTeX
 chmod +x scripts/build.sh
 ./scripts/build.sh
-
-# Check output/book.pdf
 ```
+
+Your PDFs will appear in the **`output/`** folder: `your-title-v1.0.pdf`, `your-title-v1.0-kdp.pdf`, and `your-title-v1.0-mobile.pdf` (names come from `title` and `version` in `templates/metadata.yml`). Open the `output/` folder in Finder or File Explorer to view them.
 
 ### 5.2 First Deployment
 ```bash
@@ -118,6 +168,15 @@ Check the Actions tab for build status.
 
 ### Common Issues
 
+**Build script errors** — If the build fails with one of these messages, try the fix listed:
+
+| Build error | What to do |
+|-------------|------------|
+| No markdown files found in chapters/ directory | Add at least one chapter file in `chapters/`, e.g. `01-introduction.md`. Use the `NN-name.md` naming pattern. |
+| Combined markdown file is empty | Your chapter `.md` files may be empty or unreadable. Ensure each file in `chapters/` has content and is valid Markdown. |
+| Metadata file not found | Ensure `templates/metadata.yml` exists. If you renamed or moved it, restore it or update the build script. |
+| PDF generation failed | Pandoc or LaTeX failed. Check the full build log (e.g. in GitHub Actions or Docker output) for the real error—often a missing image path, bad LaTeX, or invalid Markdown. |
+
 **Build fails with LaTeX errors:**
 - Check your markdown syntax
 - Ensure all referenced images exist
@@ -134,7 +193,7 @@ Check the Actions tab for build status.
 
 ### Getting Help
 
-1. Check [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
+1. See the Common Issues section above in this guide
 2. Review GitHub Actions logs
 3. Open an issue with:
    - Error messages
