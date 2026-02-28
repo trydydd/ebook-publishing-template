@@ -97,6 +97,7 @@ PDFs are written to **`output/`** (same filenames as above). See the `Dockerfile
 ## Documentation
 
 - [Setup Guide](SETUP.md) - Detailed setup instructions
+- [Standards](STANDARDS.md) - Asset and content rules (images, metadata, chapters, Markdown) so builds succeed
 
 ## Example Book
 

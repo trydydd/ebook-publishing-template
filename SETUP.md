@@ -68,6 +68,8 @@ To add secrets so GitHub Actions can access them (e.g. for Gumroad):
 
 ## Step 4: Content Creation
 
+For a single reference on cover images, chapter naming, metadata, and supported Markdown, see [STANDARDS.md](STANDARDS.md).
+
 ### 4.1 Book Metadata
 
 Edit `templates/metadata.yml`. You can edit it in the GitHub web editor or in a text editor.

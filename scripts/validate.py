@@ -22,8 +22,8 @@ def validate_metadata() -> Tuple[bool, List[str]]:
         with open(metadata_path, 'r') as f:
             metadata = yaml.safe_load(f)
         
-        # Required fields
-        required_fields = ['title', 'author', 'date', 'description']
+        # Required fields (version is required by build.sh for PDF basename)
+        required_fields = ['title', 'author', 'date', 'description', 'version']
         for field in required_fields:
             if not metadata.get(field):
                 errors.append(f"Missing required metadata field: {field}")
